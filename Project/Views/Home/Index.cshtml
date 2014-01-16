@@ -1,0 +1,42 @@
+﻿@model Project.ViewModel.HomeIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+@using(Html.BeginForm()) 
+{
+    @Html.ValidationSummary(true, "Error")
+
+    <div>
+        @Html.LabelFor(model => model.City)
+    </div>
+    <div>
+        @Html.TextBoxFor(model => model.City)
+        @Html.ValidationMessageFor(model => model.City)
+    </div>
+    <div>
+        <input type="submit" value="Get forecast" />
+    </div>
+}
+
+@if (Model != null && Model.HasForecasts)
+{
+    <h3>Weather forecast for @Model.Address</h3>
+    
+    foreach (var forecast in Model.Forecasts)
+    {
+        <div class="day">
+            <div class="container">
+                <img src="@String.Format("http://openweathermap.org/img/w/{0}.png", forecast.Icon)" />
+                <p>@forecast.Description</p>
+                <p>@forecast.Temperature °C</p>
+            </div>
+        </div>
+    }
+}
+
+@section Scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+}

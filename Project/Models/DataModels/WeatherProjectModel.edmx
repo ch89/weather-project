@@ -1,0 +1,263 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Project.Models.DataModels.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="ProjectModelsDataModelsStoreContainer">
+          <EntitySet Name="Forecast" EntityType="Project.Models.DataModels.Store.Forecast" store:Type="Tables" Schema="appSchema" />
+          <EntitySet Name="Location" EntityType="Project.Models.DataModels.Store.Location" store:Type="Tables" Schema="appSchema" />
+          <AssociationSet Name="FK__Forecast__Locati__48CFD27E" Association="Project.Models.DataModels.Store.FK__Forecast__Locati__48CFD27E">
+            <End Role="Location" EntitySet="Location" />
+            <End Role="Forecast" EntitySet="Forecast" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Forecast">
+          <Key>
+            <PropertyRef Name="ForecastId" />
+          </Key>
+          <Property Name="ForecastId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="LocationId" Type="int" Nullable="false" />
+          <Property Name="Temperature" Type="float" Nullable="false" />
+          <Property Name="Description" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Icon" Type="varchar" Nullable="false" MaxLength="5" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="Latitude" Type="float" Nullable="false" />
+          <Property Name="Longitude" Type="float" Nullable="false" />
+          <Property Name="NextUpdate" Type="datetime2" Nullable="false" />
+          <Property Name="City" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <Association Name="FK__Forecast__Locati__48CFD27E">
+          <End Role="Location" Type="Project.Models.DataModels.Store.Location" Multiplicity="1" />
+          <End Role="Forecast" Type="Project.Models.DataModels.Store.Forecast" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Forecast">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="DeleteForecast" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+          <Parameter Name="ForecastId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="DeleteLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+          <Parameter Name="LocationId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertForecast" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+          <Parameter Name="LocationId" Type="int" Mode="In" />
+          <Parameter Name="Temperature" Type="float" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="Icon" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="InsertLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+          <Parameter Name="Address" Type="varchar" Mode="In" />
+          <Parameter Name="Latitude" Type="float" Mode="In" />
+          <Parameter Name="Longitude" Type="float" Mode="In" />
+          <Parameter Name="NextUpdate" Type="datetime2" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateForecast" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+          <Parameter Name="ForecastId" Type="int" Mode="In" />
+          <Parameter Name="Temperature" Type="float" Mode="In" />
+          <Parameter Name="Description" Type="varchar" Mode="In" />
+          <Parameter Name="Icon" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="UpdateLocation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="appSchema">
+          <Parameter Name="LocationId" Type="int" Mode="In" />
+          <Parameter Name="Address" Type="varchar" Mode="In" />
+          <Parameter Name="Latitude" Type="float" Mode="In" />
+          <Parameter Name="Longitude" Type="float" Mode="In" />
+          <Parameter Name="NextUpdate" Type="datetime2" Mode="In" />
+          <Parameter Name="City" Type="varchar" Mode="In" />
+        </Function>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Project.Models.DataModels" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="UD12_ch222ih_WeatherEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Forecasts" EntityType="Project.Models.DataModels.Forecast" />
+          <EntitySet Name="Locations" EntityType="Project.Models.DataModels.Location" />
+          <AssociationSet Name="FK__Forecast__Locati__48CFD27E" Association="Project.Models.DataModels.FK__Forecast__Locati__48CFD27E">
+            <End Role="Location" EntitySet="Locations" />
+            <End Role="Forecast" EntitySet="Forecasts" />
+          </AssociationSet>
+          <FunctionImport Name="DeleteForecast">
+            <Parameter Name="ForecastId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="DeleteLocation">
+            <Parameter Name="LocationId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertForecast" ReturnType="Collection(Decimal)">
+            <Parameter Name="LocationId" Mode="In" Type="Int32" />
+            <Parameter Name="Temperature" Mode="In" Type="Double" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Icon" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertLocation" ReturnType="Collection(Decimal)">
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Latitude" Mode="In" Type="Double" />
+            <Parameter Name="Longitude" Mode="In" Type="Double" />
+            <Parameter Name="NextUpdate" Mode="In" Type="DateTime" />
+            <Parameter Name="City" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateForecast">
+            <Parameter Name="ForecastId" Mode="In" Type="Int32" />
+            <Parameter Name="Temperature" Mode="In" Type="Double" />
+            <Parameter Name="Description" Mode="In" Type="String" />
+            <Parameter Name="Icon" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="UpdateLocation">
+            <Parameter Name="LocationId" Mode="In" Type="Int32" />
+            <Parameter Name="Address" Mode="In" Type="String" />
+            <Parameter Name="Latitude" Mode="In" Type="Double" />
+            <Parameter Name="Longitude" Mode="In" Type="Double" />
+            <Parameter Name="NextUpdate" Mode="In" Type="DateTime" />
+            <Parameter Name="City" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="Forecast">
+          <Key>
+            <PropertyRef Name="ForecastId" />
+          </Key>
+          <Property Name="ForecastId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="LocationId" Type="Int32" Nullable="false" />
+          <Property Name="Temperature" Type="Double" Nullable="false" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Icon" Type="String" Nullable="false" MaxLength="5" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Location" Relationship="Project.Models.DataModels.FK__Forecast__Locati__48CFD27E" FromRole="Forecast" ToRole="Location" />
+        </EntityType>
+        <EntityType Name="Location">
+          <Key>
+            <PropertyRef Name="LocationId" />
+          </Key>
+          <Property Name="LocationId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="Latitude" Type="Double" Nullable="false" />
+          <Property Name="Longitude" Type="Double" Nullable="false" />
+          <Property Name="NextUpdate" Type="DateTime" Nullable="false" Precision="7" />
+          <Property Name="City" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Forecasts" Relationship="Project.Models.DataModels.FK__Forecast__Locati__48CFD27E" FromRole="Location" ToRole="Forecast" />
+        </EntityType>
+        <Association Name="FK__Forecast__Locati__48CFD27E">
+          <End Role="Location" Type="Project.Models.DataModels.Location" Multiplicity="1" />
+          <End Role="Forecast" Type="Project.Models.DataModels.Forecast" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Location">
+              <PropertyRef Name="LocationId" />
+            </Principal>
+            <Dependent Role="Forecast">
+              <PropertyRef Name="LocationId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjectModelsDataModelsStoreContainer" CdmEntityContainer="UD12_ch222ih_WeatherEntities">
+          <EntitySetMapping Name="Forecasts">
+            <EntityTypeMapping TypeName="Project.Models.DataModels.Forecast">
+              <MappingFragment StoreEntitySet="Forecast">
+                <ScalarProperty Name="ForecastId" ColumnName="ForecastId" />
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="Temperature" ColumnName="Temperature" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Icon" ColumnName="Icon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Project.Models.DataModels.Forecast">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="Project.Models.DataModels.Store.InsertForecast">
+                  <ScalarProperty Name="Icon" ParameterName="Icon" />
+                  <ScalarProperty Name="Description" ParameterName="Description" />
+                  <ScalarProperty Name="Temperature" ParameterName="Temperature" />
+                  <ScalarProperty Name="LocationId" ParameterName="LocationId" />
+                  <ResultBinding Name="ForecastId" ColumnName="NewForecastId" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="Project.Models.DataModels.Store.UpdateForecast">
+                  <ScalarProperty Name="Icon" ParameterName="Icon" Version="Current" />
+                  <ScalarProperty Name="Description" ParameterName="Description" Version="Current" />
+                  <ScalarProperty Name="Temperature" ParameterName="Temperature" Version="Current" />
+                  <ScalarProperty Name="ForecastId" ParameterName="ForecastId" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="Project.Models.DataModels.Store.DeleteForecast">
+                  <ScalarProperty Name="ForecastId" ParameterName="ForecastId" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="Project.Models.DataModels.Location">
+              <MappingFragment StoreEntitySet="Location">
+                <ScalarProperty Name="LocationId" ColumnName="LocationId" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Longitude" ColumnName="Longitude" />
+                <ScalarProperty Name="NextUpdate" ColumnName="NextUpdate" />
+                <ScalarProperty Name="City" ColumnName="City" />
+              </MappingFragment>
+            </EntityTypeMapping>
+            <EntityTypeMapping TypeName="Project.Models.DataModels.Location">
+              <ModificationFunctionMapping>
+                <InsertFunction FunctionName="Project.Models.DataModels.Store.InsertLocation">
+                  <ScalarProperty Name="City" ParameterName="City" />
+                  <ScalarProperty Name="NextUpdate" ParameterName="NextUpdate" />
+                  <ScalarProperty Name="Longitude" ParameterName="Longitude" />
+                  <ScalarProperty Name="Latitude" ParameterName="Latitude" />
+                  <ScalarProperty Name="Address" ParameterName="Address" />
+                  <ResultBinding Name="LocationId" ColumnName="NewLocationId" />
+                </InsertFunction>
+                <UpdateFunction FunctionName="Project.Models.DataModels.Store.UpdateLocation">
+                  <ScalarProperty Name="City" ParameterName="City" Version="Current" />
+                  <ScalarProperty Name="NextUpdate" ParameterName="NextUpdate" Version="Current" />
+                  <ScalarProperty Name="Longitude" ParameterName="Longitude" Version="Current" />
+                  <ScalarProperty Name="Latitude" ParameterName="Latitude" Version="Current" />
+                  <ScalarProperty Name="Address" ParameterName="Address" Version="Current" />
+                  <ScalarProperty Name="LocationId" ParameterName="LocationId" Version="Current" />
+                </UpdateFunction>
+                <DeleteFunction FunctionName="Project.Models.DataModels.Store.DeleteLocation">
+                  <ScalarProperty Name="LocationId" ParameterName="LocationId" />
+                </DeleteFunction>
+              </ModificationFunctionMapping>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="DeleteForecast" FunctionName="Project.Models.DataModels.Store.DeleteForecast" />
+          <FunctionImportMapping FunctionImportName="DeleteLocation" FunctionName="Project.Models.DataModels.Store.DeleteLocation" />
+          <FunctionImportMapping FunctionImportName="InsertForecast" FunctionName="Project.Models.DataModels.Store.InsertForecast" />
+          <FunctionImportMapping FunctionImportName="InsertLocation" FunctionName="Project.Models.DataModels.Store.InsertLocation" />
+          <FunctionImportMapping FunctionImportName="UpdateForecast" FunctionName="Project.Models.DataModels.Store.UpdateForecast" />
+          <FunctionImportMapping FunctionImportName="UpdateLocation" FunctionName="Project.Models.DataModels.Store.UpdateLocation" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
